@@ -1,0 +1,221 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "paths": {
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "@app/users": [
+        "libs/users/src"
+      ],
+      "@app/users/*": [
+        "libs/users/src/*"
+      ],
+      "@app/orders": [
+        "libs/orders/src"
+      ],
+      "@app/orders/*": [
+        "libs/orders/src/*"
+      ],
+      "@app/brands": [
+        "libs/brands/src"
+      ],
+      "@app/brands/*": [
+        "libs/brands/src/*"
+      ],
+      "@app/categories": [
+        "libs/categories/src"
+      ],
+      "@app/categories/*": [
+        "libs/categories/src/*"
+      ],
+      "@app/ckecklist": [
+        "libs/ckecklist/src"
+      ],
+      "@app/ckecklist/*": [
+        "libs/ckecklist/src/*"
+      ],
+      "@app/checklist": [
+        "libs/checklist/src"
+      ],
+      "@app/checklist/*": [
+        "libs/checklist/src/*"
+      ],
+      "@app/cities": [
+        "libs/cities/src"
+      ],
+      "@app/cities/*": [
+        "libs/cities/src/*"
+      ],
+      "@app/conditions": [
+        "libs/conditions/src"
+      ],
+      "@app/conditions/*": [
+        "libs/conditions/src/*"
+      ],
+      "@app/doctors": [
+        "libs/doctors/src"
+      ],
+      "@app/doctors/*": [
+        "libs/doctors/src/*"
+      ],
+      "@app/order-items": [
+        "libs/order-items/src"
+      ],
+      "@app/order-items/*": [
+        "libs/order-items/src/*"
+      ],
+      "@app/order-item-media": [
+        "libs/order-item-media/src"
+      ],
+      "@app/order-item-media/*": [
+        "libs/order-item-media/src/*"
+      ],
+      "@app/order-item-checklist-mapping": [
+        "libs/order-item-checklist-mapping/src"
+      ],
+      "@app/order-item-checklist-mapping/*": [
+        "libs/order-item-checklist-mapping/src/*"
+      ],
+      "@app/orders-audit": [
+        "libs/orders-audit/src"
+      ],
+      "@app/orders-audit/*": [
+        "libs/orders-audit/src/*"
+      ],
+      "@app/medias": [
+        "libs/medias/src"
+      ],
+      "@app/medias/*": [
+        "libs/medias/src/*"
+      ],
+      "@app/roles": [
+        "libs/roles/src"
+      ],
+      "@app/roles/*": [
+        "libs/roles/src/*"
+      ],
+      "@app/states": [
+        "libs/states/src"
+      ],
+      "@app/states/*": [
+        "libs/states/src/*"
+      ],
+      "@app/statuses": [
+        "libs/statuses/src"
+      ],
+      "@app/statuses/*": [
+        "libs/statuses/src/*"
+      ],
+      "@app/testimonies": [
+        "libs/testimonies/src"
+      ],
+      "@app/testimonies/*": [
+        "libs/testimonies/src/*"
+      ],
+      "@app/transfer-history": [
+        "libs/transfer-history/src"
+      ],
+      "@app/transfer-history/*": [
+        "libs/transfer-history/src/*"
+      ],
+      "@app/users-feedback": [
+        "libs/users-feedback/src"
+      ],
+      "@app/users-feedback/*": [
+        "libs/users-feedback/src/*"
+      ],
+      "@app/promo-codes": [
+        "libs/promo-codes/src"
+      ],
+      "@app/promo-codes/*": [
+        "libs/promo-codes/src/*"
+      ],
+      "@app/faqs": [
+        "libs/faqs/src"
+      ],
+      "@app/faqs/*": [
+        "libs/faqs/src/*"
+      ],
+      "@app/partners": [
+        "libs/partners/src"
+      ],
+      "@app/partners/*": [
+        "libs/partners/src/*"
+      ],
+      "@app/equipments": [
+        "libs/equipments/src"
+      ],
+      "@app/equipments/*": [
+        "libs/equipments/src/*"
+      ],
+      "@app/equipment-media-mapping": [
+        "libs/equipment-media-mapping/src"
+      ],
+      "@app/equipment-media-mapping/*": [
+        "libs/equipment-media-mapping/src/*"
+      ],
+      "@app/equipment-faq-mapping": [
+        "libs/equipment-faq-mapping/src"
+      ],
+      "@app/equipment-faq-mapping/*": [
+        "libs/equipment-faq-mapping/src/*"
+      ],
+      "@app/equipment-category-mapping": [
+        "libs/equipment-category-mapping/src"
+      ],
+      "@app/equipment-category-mapping/*": [
+        "libs/equipment-category-mapping/src/*"
+      ],
+      "n/partner-documents": [
+        "libs/partner-documents/src"
+      ],
+      "n/partner-documents/*": [
+        "libs/partner-documents/src/*"
+      ],
+      "@app/partner-bank-details": [
+        "libs/partner-bank-details/src"
+      ],
+      "@app/partner-bank-details/*": [
+        "libs/partner-bank-details/src/*"
+      ],
+      "@app/partner-equipment-mapping": [
+        "libs/partner-equipment-mapping/src"
+      ],
+      "@app/partner-equipment-mapping/*": [
+        "libs/partner-equipment-mapping/src/*"
+      ],
+      "@app/partner-weekly-earning": [
+        "libs/partner-weekly-earnings/src"
+      ],
+      "@app/partner-weekly-earning/*": [
+        "libs/partner-weekly-earnings/src/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

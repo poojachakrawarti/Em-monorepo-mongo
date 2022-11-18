@@ -1,0 +1,22 @@
+# Dockerfile Node
+ARG IMG_NODE
+ARG IMG_TAG_NODE
+FROM ${IMG_NODE}:${IMG_TAG_NODE} AS base
+
+RUN npm i -g @nestjs/cli typeorm@0.2.* pm2
+
+WORKDIR /app
+COPY . .
+
+# Installing the dependencies in the container,
+# mirror the host volume,
+# and skip installing again if a `node_modules` folder is present
+
+FROM base AS prod
+CMD [ -d "node_modules" ] && yarn build:em-api-layer && yarn em-api-layer:prod || \
+	yarn install && yarn build:em-api-layer && yarn em-api-layer:prod
+
+
+FROM base AS dev
+CMD [ -d "node_modules" ] && yarn build:em-api-layer &&	yarn em-api-layer:dev || \
+	yarn install && yarn build:em-api-layer && yarn em-api-layer:dev

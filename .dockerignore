@@ -1,0 +1,6 @@
+# Add any directories, files, or patterns you don't want the docker-compose up --build process to include
+.github/
+.git/
+.gitignore
+**/.gitkeep
+docker-setup/

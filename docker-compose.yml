@@ -1,0 +1,130 @@
+# `image` : image to fetch from docker hub.
+
+# `env_file` : The node application uses environmental variables defined inside the .env file
+
+# `environment` : Define an environment variable that’s not in the .env file. Since Docker dynamically assigns the IP address of the MySQL container, we can’t store an exact host address in the .env file. Instead, we need to assign the value of this environment variable inside the Compose file. When we pass the name of the database service, Compose automatically updates it to the IP of the database container and Node can then access the variable from the application code.
+
+# `ports`: Use ports to map the public host machine port to the internal docker port. With this mapping, the host machine port should be used to access the application from the outside.
+
+# `expose`: Activates container to listen for a specific port only from the world inside of docker AND not accessible world outside of the docker.
+
+# `volumes` : Volumes provide a way to persist changes made to data when running an application inside a Docker container. It mounts a location in the local system to save data and the changes made when the container is running. But why do we need volumes? If the database used in our application doesn’t use volumes to persist data, every record the application stores in the database will be lost to us when the container stops or restarts. To avoid this, we have to define volumes under the database service configuration.
+
+# `links` : This will link one service to another. For the bridge network, we must specify which container should be accessible to which container using links.
+
+# `build` : First config action is running the commands defined in the Dockerfile. Use build to accomplish this. We can pass the relative path to the Dockerfile using context.
+
+# `tty` : For interactive response
+
+
+
+version: '2'
+
+services:
+  redis:
+    image: ${IMG_REDIS}:${IMG_TAG_REDIS}
+    container_name: ${GENERATED_CNTR_REDIS}
+    restart: unless-stopped
+    tty: true
+    ports:
+      - ${HOST_PORT_REDIS}:6379
+    expose:
+      - "6379"
+    networks:
+      - api-layer
+
+  rabbitmq:
+      image: ${IMG_RABBITMQ}:${IMG_TAG_RABBITMQ}
+      container_name: ${GENERATED_CNTR_RABBITMQ}
+      restart: unless-stopped
+      tty: true
+      env_file: ./.env
+      ports:
+        - ${HOST_PORT_APP_RABBITMQ}:5672
+        - ${HOST_PORT_UI_RABBITMQ}:15672
+      expose:
+        - "5672"
+      # volumes:
+      #   - rabbitmq_data:/var/lib/rabbitmq/
+      #   - rabbitmq_log:/var/log/rabbitmq
+      networks:
+        - api-layer
+
+  mongodb:
+    image : ${IMG_MONGO}:${IMG_TAG_MONGO}
+    container_name: ${GENERATED_CNTR_MONGO}
+    restart: unless-stopped
+    tty: true
+    env_file: ./.env
+    # environment:
+    #   - PUID=1000
+    #   - PGID=1000
+    # volumes:
+    #   - /home/barry/mongodb/database:/data/db
+    ports:
+      - ${HOST_PORT_MONGO}:27017
+    expose:
+     - "27017"
+    networks:
+      - api-layer
+
+  em-api-layer:
+    image: ${GENERATED_IMG_NODE}
+    container_name: ${GENERATED_CNTR_NODE}
+    restart: unless-stopped
+    tty: true
+    env_file: ./.env
+    environment:
+      # - MONGO_URI=mongodb://mongodb:27017/EquipMe
+      - REDIS_HOST=redis
+      - RABBITMQ_HOST=rabbitmq
+    ports:
+      - ${HOST_PORT_NODE}:3000
+    expose:
+      - "3000"
+    build:
+      context: ./
+      dockerfile: docker-setup/dockerfiles/em-api-layer
+      target: ${NODE_ENV_TARGET}  # dev/prod
+      args:
+        IMG_NODE: ${IMG_NODE}
+        IMG_TAG_NODE: ${IMG_TAG_NODE}
+    volumes:
+      - ./:/app
+    depends_on:
+      - redis
+      - rabbitmq
+      - mongodb
+    networks:
+      - api-layer
+
+  auth-service-provider:
+    image: ${GENERATED_IMG_AUTH}
+    container_name: ${GENERATED_CNTR_AUTH}
+    restart: unless-stopped
+    tty: true
+    env_file: ./.env
+    environment:
+      - DB_HOST=mongodb
+      - REDIS_HOST=redis
+      - RABBITMQ_HOST=rabbitmq
+    build:
+      context: ./
+      dockerfile: docker-setup/dockerfiles/auth-service-provider
+      target: ${NODE_ENV_TARGET}  # dev/prod
+      args:
+        IMG_NODE: ${IMG_NODE}
+        IMG_TAG_NODE: ${IMG_TAG_NODE}
+    volumes:
+      - ./:/app
+    depends_on:
+      - rabbitmq
+      - redis
+      - mongodb
+      - em-api-layer
+    networks:
+      - api-layer
+
+networks:
+  api-layer:
+    name: ${NETWORK_NAME}
