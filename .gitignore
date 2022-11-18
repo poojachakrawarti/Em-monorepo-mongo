@@ -64,6 +64,8 @@ dist/
 package-lock.json
 .adminjs
 /jspm_packages
+.env
+env.default
 
 # profiling files
 chrome-profiler-events*.json
